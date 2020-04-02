@@ -7,6 +7,7 @@ using MapperTest.Model;
 using Newtonsoft.Json;
 using Microsoft.AspNetCore.Mvc;
 using AutoMapper;
+using MapperTest.Config;
 
 namespace MapperTest.Controllers
 {
@@ -29,7 +30,7 @@ namespace MapperTest.Controllers
                 PassWord= "TestPassWord",
                 CreateTime=DateTime.Now
             };
-           var entity= Mapper.Map<UserModel>(user);
+           var entity= Mapper.Map<UserModel>(user); 
             return  JsonConvert.SerializeObject(entity);
         }
 
@@ -52,10 +53,27 @@ namespace MapperTest.Controllers
             return JsonConvert.SerializeObject(entity);
         }
 
-        // POST api/values
-        [HttpPost]
-        public void Post([FromBody] string value)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        [Route(nameof(GetManyToOne))]
+        public ActionResult<string> GetManyToOne()
         {
+            var user = new User()
+            {
+                Id = 1,
+                UserName = "TestUserName",
+                PassWord = "TestPassWord",
+                CreateTime = DateTime.Now
+            };
+            var userInfo = new UserInfo()
+            {
+                Phone = "123456789"
+            };
+            var entity = Mapper.Map<UserInfoModel>(user).Map(userInfo);
+            return JsonConvert.SerializeObject(entity);
         }
 
         // PUT api/values/5
