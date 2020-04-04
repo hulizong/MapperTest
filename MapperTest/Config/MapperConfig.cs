@@ -12,10 +12,15 @@ namespace MapperTest.Config
     {
         public MapperConfig() 
         {
+            //简单转换
             CreateMap<User,UserModel>();
             CreateMap<User,UserInfoModel>();
-            CreateMap<UserInfo,UserInfoModel>().ForMember(dest => dest.Phone, opt => opt.MapFrom(src => src.Phone));
+
+            CreateMap<UserInfo,UserInfoModel>();
+            
+            //单个成员自定义配置
             CreateMap<User,UserAppoint>().ForMember(dest=>dest.Time,opt=>opt.MapFrom(src=>src.CreateTime));
+
             CreateMap<User,UserAppoint>().BeforeMap((old,newd)=> 
             {
                 old.CreateTime = DateTime.Parse(old.CreateTime.ToString("yyyy-MM-dd"));

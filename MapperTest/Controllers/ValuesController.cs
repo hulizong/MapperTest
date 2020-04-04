@@ -54,7 +54,7 @@ namespace MapperTest.Controllers
         }
 
         /// <summary>
-        /// 
+        /// 多对一转换
         /// </summary>
         /// <returns></returns>
         [HttpGet]
@@ -75,11 +75,40 @@ namespace MapperTest.Controllers
             var entity = Mapper.Map<UserInfoModel>(user).Map(userInfo);
             return JsonConvert.SerializeObject(entity);
         }
-
-        // PUT api/values/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        /// <summary>
+        /// 集合转换
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        [Route(nameof(GetToList))]
+        public ActionResult<string> GetToList()
         {
+            var userList = new List<User>() 
+            {
+                new User()
+            {
+                Id = 1,
+                UserName = "TestUserName1",
+                PassWord = "TestPassWord1",
+                CreateTime = DateTime.Now
+            },
+            new User()
+            {
+                Id = 2,
+                UserName = "TestUserName2",
+                PassWord = "TestPassWord2",
+                CreateTime = DateTime.Now
+            },
+                new User()
+            {
+                Id = 3,
+                UserName = "TestUserName3",
+                PassWord = "TestPassWord3",
+                CreateTime = DateTime.Now
+            }
+        };
+            var entity = Mapper.Map<List<UserModel>>(userList);
+            return JsonConvert.SerializeObject(entity);
         }
 
         // DELETE api/values/5

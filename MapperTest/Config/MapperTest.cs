@@ -9,8 +9,7 @@ namespace MapperTest.Config
 {
     public static class MapperTest 
     {
-        public static TDestination Map<TSource, TDestination>(
-     this TDestination destination, TSource source)
+        public static TDestination Map<TSource, TDestination>(this TDestination destination, TSource source)
         {
             return Mapper.Map(source, destination);
         }
